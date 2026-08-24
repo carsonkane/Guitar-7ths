@@ -85,9 +85,12 @@ export default function App() {
 
         <div className="relative overflow-x-auto pb-4">
           <div className="min-w-[900px]">
+            {/* Fret Numbers Layout Adjusted */}
             <div className="flex ml-8 mb-2">
               {[...Array(FRETS + 1)].map((_, i) => (
-                <div key={i} className="flex-1 text-center text-gray-500 text-sm font-semibold">{i}</div>
+                <div key={i} className={`${i === 0 ? 'w-12' : 'flex-1'} text-center text-gray-500 text-sm font-semibold`}>
+                  {i === 0 ? '0' : i}
+                </div>
               ))}
             </div>
 
@@ -102,8 +105,14 @@ export default function App() {
                     const isGuideTone = label === '3' || label === 'b3' || label === '7' || label === 'b7';
                     
                     return (
-                      <div key={fretIndex} className="flex-1 flex justify-center relative h-8">
+                      // Width logic applied here: w-12 for the open string, flex-1 for the rest
+                      <div key={fretIndex} className={`${fretIndex === 0 ? 'w-12' : 'flex-1'} flex justify-center relative h-8`}>
                         <div className="absolute w-full h-1 bg-gray-500/50 top-1/2 -translate-y-1/2 z-0"></div>
+                        
+                        {/* Rendering the Nut distinctly from the standard frets */}
+                        {fretIndex === 0 && (
+                          <div className="absolute right-0 w-2 h-10 -top-1 bg-gray-300 z-0 rounded-sm"></div>
+                        )}
                         
                         {fretIndex > 0 && (
                           <div className="absolute right-0 w-1 h-10 -top-1 bg-gray-600/80 z-0 rounded-sm"></div>
